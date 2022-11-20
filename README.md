@@ -1,4 +1,4 @@
-# JS-Task
+# CSV-Task
 
 First download the index.html and app.js file necessary for this task. <br />
 
