@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
+    <title>Task</title>
+</head>
+
+
+<body>
+    <div class="body1">
+        <h1>Task for CSV</h1>
+        <hr>
+
+        <p>First upload CSV file created using node</p>
+
+
+        <input type="file" id="csv-file" accept=".csv">
+        <br>
+        <br>
+        <button id="one">Display original data in console</button>
+        <button id="two">Sorted CSV file by First Name</button>
+        <div>
+            <section></section>
+            <hr>
+            <h2>Do it after creating Users.csv file and sorting it</h2>
+
+        </div>
+
+
+        <script type="text/javascript">
+
+            let csvDataFirstName = []
+            let sortedF = []
+
+
+
+            let btn_upload = document.getElementById('one').addEventListener('click', () => {
+
+                Papa.parse(document.getElementById('csv-file').files[0], {
+                    download: true,
+                    header: true,
+                    complete: function (results) {
+                        //console.log(results.data)
+                        for (i = 0; i < results.data.length - 1; i++) {
+                            //csvDataFirstName.push(results.data[i].First_Name)
+                            csvDataFirstName.push(results.data[i])
+                        }
+
+                        console.log(csvDataFirstName)
+                        //alert("Look at the console for default CSV file data");
+
+                    }
+                });
+            });
+
+            let sort_btn = document.getElementById('two').addEventListener('click', () => {
+                let newArray = csvDataFirstName.concat(sortedF);
+                newArray.sort((a, b) => {
+
+                    if (a.UserName < b.UserName) {
+                        return 1;
+                    }
+                    if (a.UserName > b.UserName) {
+                        return -1;
+
+                    }
+                })
+                console.log(newArray)
+                //alert("Look at the console for SORTED CSV file data");
+
+                const labelKeys = Object.keys(newArray[0])
+
+                const newData = []
+                newData.push(labelKeys)
+                //console.log(labelKeys)
+                newArray.forEach(item => {
+                    newData.push(Object.values(item))
+                })
+                var withoutBrac = ''
+                var forFinalInput = ''
+
+                newData.forEach(row => {
+                    withoutBrac += row.join(',') + '\n'
+                })
+                newData.forEach(row => {
+                    forFinalInput += row.join(',') + ','
+                })
+                //console.log(withoutBrac)
+                //console.log(csvDataFirstName)
+                //console.log(forFinalInput)
+
+                const blob = new Blob([withoutBrac], { type: 'text/csv;charset=utf-8,' })
+                const objUrl = URL.createObjectURL(blob)
+                const link = document.createElement('a')
+                link.setAttribute('href', objUrl)
+                link.setAttribute('download', 'users-sorted.csv')
+                link.textContent = 'Download Sorted csv file'
+
+                document.querySelector('section').append(link)
+
+                const inputSend = document.createElement('input')
+                inputSend.setAttribute('type', 'text')
+                document.querySelector('span').append(inputSend)
+                inputSend.setAttribute("id", 'testid')
+
+
+
+                const inputBtn = document.createElement("BUTTON")
+                inputBtn.innerHTML = "Find"
+                document.querySelector('span').append(inputBtn)
+
+                inputBtn.onclick = function () { myFunction() };
+
+                function myFunction() {
+                    var name = document.getElementById('testid').value;
+                    alert(name);
+                    var arrayFind2 = forFinalInput.split(",");
+                    //console.log(arrayFind2)
+
+                    let aFinder = arrayFind2.indexOf(name)
+                    let firstFinder = aFinder + 1
+                    let lastFinder = firstFinder + 1
+                    let emailFinder = lastFinder + 1
+                    //console.log(firstFinder,lastFinder,emailFinder)
+                    console.log('First Name: ' + arrayFind2[firstFinder])
+                    console.log('Last Name: ' + arrayFind2[lastFinder])
+                    console.log('Email: ' + arrayFind2[emailFinder])
+                    document.getElementById("resultid").innerHTML = `First Name : ${arrayFind2[firstFinder]}`;
+                    document.getElementById("resultid1").innerHTML = `Last Name : ${arrayFind2[lastFinder]}`;
+                    document.getElementById("resultid2").innerHTML = `Email : ${arrayFind2[emailFinder]}`;
+
+
+                }
+
+
+            })
+
+
+        </script>
+        <p>Enter name of username from csv file</p>
+        <!-- <label for="fname">Username:</label>
+        <input type="text" id="uname" name="uname"><br><br>
+        <button onclick="myFunction()">Find</button> -->
+        <span></span>
+
+        <h3 id="resultid">Result will be shown here</h3>
+        <h3 id="resultid1"></h3>
+        <h3 id="resultid2"></h3>
+        <br>
+        <br>
+        <br>
+
+
+    </div>
+
+</body>
+
+</html>
