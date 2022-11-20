@@ -13,11 +13,12 @@ npm i node-fetch
 npm i objects-to-csv
 ```
 
-
 Open app.cs terminal and write the following code to start server
 ```javascript I'm A tab
 node app
 ```
+
+After installing modules and starting js file, open [localhost](http://localhost:3000/) <br />
 
 Next is to upload the CSV file which will be created after starting the js file <br />
 and do as instructed in buttons
