@@ -1,17 +1,12 @@
 # CSV-Task
 
-First download the index.html and app.js file necessary for this task. <br />
+First clone. <br />
 
 Next is to install modules to run the program
 ```javascript I'm A tab
-npm i papaparse
+npm i 
 ```
-```javascript I'm A tab
-npm i node-fetch
-```
-```javascript I'm A tab
-npm i objects-to-csv
-```
+
 
 Open app.cs terminal and write the following code to start server
 ```javascript I'm A tab
